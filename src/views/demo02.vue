@@ -8,7 +8,6 @@
 import * as THREE from 'three'
 // import dat from 'dat.gui'
 export default {
-  name:'demo',
   data(){
     return{
       scene:'',//场景
