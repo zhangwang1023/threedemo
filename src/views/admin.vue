@@ -1,109 +1,152 @@
 <template>
   <div>
-    <el-button type="" @click="showAdd = true">新增企业信息</el-button>
-    <el-table
-      ref="multipleTable"
-      :data="tableData"
-      tooltip-effect="dark"
-      style="width: 100%"
-      @selection-change="handleSelectionChange"
-    >
-      <el-table-column type="selection" width="55"> </el-table-column>
-      <el-table-column prop="date" label="日期" width="120"></el-table-column>
-      <el-table-column prop="name" label="姓名" width="120"> </el-table-column>
-      <el-table-column
-        prop="address"
-        label="地址"
-        show-overflow-tooltip
-      ></el-table-column>
-    </el-table>
-    <el-dialog
-      title="提示"
-      :visible.sync="showAdd"
-      width="30%"
-      :before-close="handleClose"
-    >
-      <span>企业名称</span><el-input v-model="name" placeholder="请输入企业名称"></el-input>
-      <span>企业英文名称</span><el-input v-model="name_en" placeholder="请输入企业名称"></el-input>
-      <span>企业名称</span><el-input v-model="name" placeholder="请输入企业名称"></el-input>
-      <span>企业名称</span><el-input v-model="name" placeholder="请输入企业名称"></el-input>
-      <span>企业名称</span><el-input v-model="name" placeholder="请输入企业名称"></el-input>
-      <span>企业名称</span><el-input v-model="name" placeholder="请输入企业名称"></el-input>
-      <span>企业名称</span><el-input v-model="name" placeholder="请输入企业名称"></el-input>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="showAdd = false">取 消</el-button>
-        <el-button type="primary" @click="showAdd = false">确 定</el-button>
-      </span>
-    </el-dialog>
+    <!-- echarts堆积图 -->
+    <div ref="demo" id="demo1" class="echarts"></div>
   </div>
 </template>
-
 <script>
 export default {
-  data() {
-    return {
-      showAdd: false,
-      tableData: [
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-04",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-01",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-08",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-06",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-07",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-      ],
-      multipleSelection: [],
-    };
+  name: 'demo',
+  props: {
+    bar1: {
+      type: Array,
+      value: [],
+    },
+    bar2: {
+      type: Array,
+      value: [],
+    },
+    line1: {
+      type: Array,
+      value: [],
+    },
+    line2: {
+      type: Array,
+      value: [],
+    },
+    xAxis: {
+      type: Array,
+      value: [],
+    },
+    legend: {
+      type: Array,
+      value: [],
+    },
   },
-
+  mounted() {
+    this.draw()
+  },
   methods: {
-    toggleSelection(rows) {
-      if (rows) {
-        rows.forEach((row) => {
-          this.$refs.multipleTable.toggleRowSelection(row);
-        });
-      } else {
-        this.$refs.multipleTable.clearSelection();
-      }
-    },
-    handleSelectionChange(val) {
-      this.multipleSelection = val;
-    },
-    handleClose(done) {
-      this.$confirm("确认关闭？")
-        .then(() => {
-          done();
+    draw() {
+      //echarts
+      var seriesOption = [//初始值三张图表
+        {
+          name: this.legend[0],
+          type: 'bar',
+          data: this.bar1,
+          stack: 'first',
+          color: 'pink',
+          label: {
+            show: true, //开启显示
+            position: 'inside', //在上方显示
+            textStyle: {
+              color: 'white',
+            },
+          },
+        },
+        {
+          name: this.legend[1],
+          type: 'bar',
+          data: this.bar2,
+          stack: 'first',
+          label: {
+            show: true, //开启显示
+            position: 'inside', //在上方显示
+          },
+        },
+        {
+          name: this.legend[2],
+          type: 'line',
+          data: this.line1,
+          yAxisIndex:1,
+          color: 'darkblue',
+          label: {
+            show: true, //开启显示
+            position: 'top', //在上方显示
+            formatter:'{c}.00%',
+            textStyle: {
+              color: 'black',
+            },
+          },
+        },
+      ]
+      if (this.legend.length == 4) {//增加一张图表
+        seriesOption.push({
+          name: this.legend[3],
+          type: 'line',
+          data: this.line2,
+          yAxisIndex:1,
+          color: 'darkblue',
+          label: {
+            show: true, //开启显示
+            position: 'bottom', //在底下显示
+            formatter:'{c}.00%',
+            textStyle: {
+              color: 'black',
+            },
+          },
         })
-        .catch(() => {});
+      }
+      var myChart = this.$echarts.init(document.getElementById('demo1'))
+      // 绘制图表
+      myChart.setOption({
+        tooltip: {
+          show: false,
+        }, //工具栏
+        legend: {
+          //图例
+          data: this.legend,
+          bottom: 0,
+        },
+        xAxis: {
+          data: this.xAxis,
+        },
+        yAxis: [
+          {
+            type: 'value',
+            min: 0,
+            max: Math.floor((Math.max(...this.bar1)+Math.max(...this.bar2))*1.3),
+            show:false,
+            splitLine:{
+              show: false
+            },
+          },
+          {
+            type: 'value',
+            min: -200,
+            max: 100,
+            show:false,
+            splitLine:{
+              show: false
+            },
+            axisLabel: {
+              formatter: '{value}%'
+            }
+          }
+        ]
+        ,
+        series: seriesOption,
+      })
+      myChart.on('click', (params) => {
+        this.$emit('showparams', params)
+      })
     },
   },
-};
+}
 </script>
+<style scoped>
+.echarts {
+  height: 400px;
+  width: 500px;
+}
+</style>
