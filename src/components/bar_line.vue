@@ -1,12 +1,11 @@
 <template>
   <div>
     <!-- echarts堆积图 -->
-    <div ref="demo" id="demo1" class="echarts"></div>
+    <div id="barLine" class="echarts"></div>
   </div>
 </template>
 <script>
 export default {
-  name: 'demo',
   props: {
     bar1: {
       type: Array,
@@ -32,6 +31,14 @@ export default {
       type: Array,
       value: [],
     },
+    color: {
+      type: Array,
+      value: [],
+    },
+    textColor: {
+      type: Array,
+      value: [],
+    },
   },
   mounted() {
     this.draw()
@@ -45,12 +52,12 @@ export default {
           type: 'bar',
           data: this.bar1,
           stack: 'first',
-          color: 'pink',
+          color: this.color[0],
           label: {
             show: true, //开启显示
             position: 'inside', //在上方显示
             textStyle: {
-              color: 'white',
+              color: this.textColor[0],
             },
           },
         },
@@ -59,9 +66,13 @@ export default {
           type: 'bar',
           data: this.bar2,
           stack: 'first',
+          color: this.color[1],
           label: {
             show: true, //开启显示
             position: 'inside', //在上方显示
+            textStyle: {
+              color: this.textColor[1],
+            },
           },
         },
         {
@@ -69,13 +80,13 @@ export default {
           type: 'line',
           data: this.line1,
           yAxisIndex:1,
-          color: 'darkblue',
+          color: this.color[2],
           label: {
             show: true, //开启显示
             position: 'top', //在上方显示
             formatter:'{c}.00%',
             textStyle: {
-              color: 'black',
+              color: this.textColor[1],
             },
           },
         },
@@ -86,23 +97,23 @@ export default {
           type: 'line',
           data: this.line2,
           yAxisIndex:1,
-          color: 'darkblue',
+          color: this.color[3],
           label: {
             show: true, //开启显示
             position: 'bottom', //在底下显示
             formatter:'{c}.00%',
             textStyle: {
-              color: 'black',
+              color: this.textColor[1],
             },
           },
         })
       }
-      var myChart = this.$echarts.init(document.getElementById('demo1'))
+      var myChart = this.$echarts.init(document.getElementById('barLine'))
       // 绘制图表
       myChart.setOption({
-        tooltip: {
+        tooltip: {//提示框
           show: false,
-        }, //工具栏
+        }, 
         legend: {
           //图例
           data: this.legend,
@@ -147,6 +158,6 @@ export default {
 <style scoped>
 .echarts {
   height: 400px;
-  width: 500px;
+  /* width: ; */
 }
 </style>

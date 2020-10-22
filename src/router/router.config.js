@@ -1,5 +1,5 @@
 import demo from '@/views/Demo.vue'
-import admin from '@/views/admin.vue'
+import bar_line from '@/components/bar_line.vue'
 import demo02 from '@/views/demo02.vue'
 import parent from '@/views/parent.vue'
 
@@ -8,10 +8,15 @@ import parent from '@/views/parent.vue'
  */
 export const constantRouterMap = [
     {
-        path: '/admin',
-        name: 'admin',
-        component: admin,
-        meta: { title: '后台' },
+        path: '/bar_line',
+        name: 'bar_line',
+        component: bar_line,
+        meta: { title: '组件' },
+    },
+    {
+        path: '/pie',
+        name: 'pie',
+        meta: { title: '组件' },
     },
     {
         path: '/demo',
