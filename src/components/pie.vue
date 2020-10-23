@@ -1,8 +1,6 @@
 <template>
-  <div>
     <!-- echarts堆积图 -->
-    <div id="pie" class="echarts"></div>
-  </div>
+    <div id="pie" class="pie"></div>
 </template>
 <script>
 export default {
@@ -18,10 +16,6 @@ export default {
     name: {
       type: String,
       value: '',
-    },
-    itemColor: {
-      type: Array,
-      value: [],
     },
     labelColor: {
       type: Array,
@@ -52,15 +46,7 @@ export default {
         backgroundColor: '#fff',
         title: {},
         tooltip: {
-          // show: false,
-        },
-        visualMap: {
           show: false,
-          min: 80,
-          max: 500,
-          inRange: {
-            colorLightness: [0, 1],
-          },
         },
         series: [
           {
@@ -72,24 +58,15 @@ export default {
             roseType: this.roseType,
             label: {
               color: this.labelColor,
-              formatter: `{d}%
-{b}
+              formatter: `{b}
+{d}%
 {c}`,
             },
             labelLine: {
-              lineStyle: {
-                color: this.lineColor,
-              },
-              smooth: 0.2,
-              length: 8,
-              length2: 8,
+              length: 10,
+              length2: 40,
             },
-            itemStyle: {
-              color: this.itemColor,
-              // shadowBlur: 200,阴影
-              // shadowColor: 'rgba(0, 0, 0, 0.5)'
-            },
-            animationType: 'scale', //动画类型'expansion' 默认沿圆弧展开的效果 'scale' 缩放效果
+            animationType: 'expansion', //动画类型'expansion' 默认沿圆弧展开的效果 'scale' 缩放效果
             // animationEasing: 'elasticOut',//缓动效果
             // animationDelay: function (idx) {//延迟效果
             //     return Math.random() * 200;
@@ -97,13 +74,16 @@ export default {
           },
         ],
       })
+      myChart.on('click', (params) => {
+        this.$emit('showparams', params)
+      })
     },
   },
 }
 </script>
 <style scoped>
-.echarts {
-  height: 400px;
-  /* width: ; */
+.pie {
+  height: 100%;
+  width: 100%;
 }
 </style>
