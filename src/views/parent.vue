@@ -15,7 +15,6 @@
       @showparams="show"
       :data="data"
       :name="name"
-      :labelColor="labelColor"
       :radius="radius"
       :center="center"
       :roseType="roseType"
@@ -33,11 +32,11 @@ export default {
   },
   data() {
     return {
-      bar1: [120, 180, 160, 140, 240], //柱状图1
+      bar1: [120, 180, 160, 140, 240,12,12], //柱状图1
       bar2: [20, 80, 18, 24, 36], //柱状图2
       line1: [50.0, 60, 50, 65, 45], //折线图1
       line2: [55, 36, 40, 55, 55], //折线图2
-      xAxis: ['1月', '2月', '3月', '4月', '5月'], //x轴数据
+      xAxis: ['1月', '2月', '3月', '4月', '5月','6月','7月','8月','9月','10月','11月','12月'], //x轴数据
       legend: ['已完成', '未完成', '完成率', '满意度'], //图例
       color: ['#6096FE', '#FF8DA2', '#A9B4F9', '#F1A5B8'], //图表颜色
       textColor: ['#95A0A9', '#95A0A9', '#6F82F8', '#FF6E89'], //文本颜色
@@ -47,7 +46,6 @@ export default {
         { value: 274, name: '联盟广告',itemStyle:{color:'#B2D0FF',shadowColor:'rgba(96, 150, 254, 0.6)',shadowBlur: 10}},
       ], //数据 包括值、名称、元素颜色、元素阴影颜色、阴影大小
       name: '数据来源', //元素名称
-      labelColor: ['#8A96A0'], //标签颜色
       radius: ['30%', '50%'], //大小 饼图传字符串
       center: ['50%', '50%'], //位置
       roseType: 'radius', //图表类型 radius为玫瑰图

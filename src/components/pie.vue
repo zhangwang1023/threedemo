@@ -1,6 +1,6 @@
 <template>
-    <!-- echarts堆积图 -->
-    <div id="pie" class="pie"></div>
+  <!-- echarts堆积图 -->
+  <div id="pie" class="pie"></div>
 </template>
 <script>
 export default {
@@ -16,10 +16,6 @@ export default {
     name: {
       type: String,
       value: '',
-    },
-    labelColor: {
-      type: Array,
-      value: [],
     },
     radius: {
       type: Array,
@@ -57,20 +53,20 @@ export default {
             data: this.data,
             roseType: this.roseType,
             label: {
-              color: this.labelColor,
-              formatter: `{b}
-{d}%
-{c}`,
+              padding: [0, -100],
+              lineHeight: 20,
+              formatter: `{first|{b}} {second|{d}%}\n{third|{c}}`,
+              rich: {
+                first: { color: '#343A4E',fontSize:12,fontWeight:500},
+                second: { color: '#343A4E',fontSize:12},
+                third: { color: '#8A96A0',align:'center',fontSize:11},
+              },
             },
             labelLine: {
-              length: 10,
-              length2: 40,
+              length: 20,
+              length2: 90,
             },
-            animationType: 'expansion', //动画类型'expansion' 默认沿圆弧展开的效果 'scale' 缩放效果
-            // animationEasing: 'elasticOut',//缓动效果
-            // animationDelay: function (idx) {//延迟效果
-            //     return Math.random() * 200;
-            // }
+            animationType: 'expansion',
           },
         ],
       })

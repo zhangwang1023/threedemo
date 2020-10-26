@@ -50,6 +50,7 @@ export default {
       }else{
         maxLength=Math.max(...this.bar2)
       }
+      var datazoom=(this.bar1.length-1)/12*100
       var seriesOption = [
         //初始值三张图表 柱形图1
         {
@@ -141,6 +142,18 @@ export default {
           //提示框
           show: false,
         },
+        dataZoom:[
+          {
+            type:'inside',
+            end:datazoom,
+            xAxisIndex:0
+          },
+          {
+            type:'inside',
+            start:datazoom,
+            xAxisIndex:0
+          }
+        ],
         legend:[{
           //图例1
           data: [this.legend[0]],
@@ -200,7 +213,7 @@ export default {
             padding:[4,0,0,0]
           },
         }],
-        xAxis: {
+        xAxis:{
           data: this.xAxis,
           nameGap:100,
           axisLine:{
