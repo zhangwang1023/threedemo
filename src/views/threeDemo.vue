@@ -45,7 +45,7 @@ export default {
       // this.camera.lookAt( 0, 0, 0 );
       //创建渲染器
       this.renderer=new THREE.WebGLRenderer()
-      this.renderer.setClearColor('#fff')
+      this.renderer.setClearColor('#242424')
       //设置渲染器尺寸
       this.renderer.setSize(window.innerWidth,window.innerHeight)
       //将渲染器dom元素添加到html文档
@@ -81,7 +81,7 @@ export default {
       this.geometry2.vertices.push(new THREE.Vector3(-2,0,0))
       console.log('geometry2',this.geometry2);
       //添加材质
-      this.material2=new THREE.LineBasicMaterial({color:0x0000ff})
+      this.material2=new THREE.LineBasicMaterial({color:0x00ffff})
       //创建网格
       this.cube2=new THREE.Line(this.geometry2,this.material2)
       //将网格添加到场景
@@ -92,11 +92,11 @@ export default {
       //执行动画并调用回调函数
       requestAnimationFrame(this.showScene)
       //变化参数
-      this.cube1.rotation.x-=0.02
-      this.cube1.rotation.y+=0.02
+      this.cube1.rotation.x-=1/200
+      this.cube1.rotation.y+=1/150
 
-      this.cube2.rotation.x-=0.03
-      this.cube2.rotation.y+=0.03
+      this.cube2.rotation.x-=1/150
+      this.cube2.rotation.y+=1/200
       //调用渲染（场景、相机）
       this.renderer.render(this.scene,this.camera)
     },

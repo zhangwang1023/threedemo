@@ -1,0 +1,57 @@
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.11.7"></script>
+    <!-- 从随机数计算函数指数项的值 -->
+    <script>
+      const a = tf.variable(tf.scalar(Math.random()))
+      const b = tf.variable(tf.scalar(Math.random()))
+      const c = tf.variable(tf.scalar(Math.random()))
+      const d = tf.variable(tf.scalar(Math.random()))
+      //建立模型
+      function predict(x) {
+        return tf.tidy(() => {
+          //内存管理 tidy实用于张量 清理变量使用dispose()
+          // tf.tidy 会清除在这个函数内的张量使用的所有GPU内存，而不是返回的张量。
+          // 即使在像下面这样的一个简短的操作序列中，也会创建一些中间的张量。所以，把 ops 放在 tidy 函数中是一个好的选择
+          return a.mul(x)
+            // .mul(x.pow(tf.scalar(3))) // a * x^3
+            // .add(b.mul(x.square())) // + b * x ^ 2
+            // .add(c.mul(x)) // + c * x
+            // .add(d)
+        })
+      }
+      //定义损失函数
+      function loss(predictions, labels) {
+        // 将labels（实际的值）进行抽象
+        // 然后获取平均数.
+        const meanSquareError = predictions
+          .sub(labels)
+          .square()
+          .mean()
+        return meanSquareError
+      }
+      //训练器
+      function train(xs, ys, numIterations) {
+        const learningRate = 0.5
+        const optimizer = tf.train.sgd(learningRate) //优化器
+        for (let iter = 0; iter < numIterations; iter++) {
+          /**
+            minimize 接受了一个函数作为参数，这个函数做了下面的两件事情：
+            1、首先它对所有的x值通过我们在之前定义的pridict函数预测了y值。
+            2、然后它通过我们之前定义的损失函数返回了这些预测的均方误差。
+            minimize函数之后会自动调整这些变量（即系数a、b、c、d）来使得损失函数更小。
+            在运行训练迭代器之后，a、b、c以及d就会是通过模型75次SGD迭代之后学习到的结果了
+          * */
+          optimizer.minimize(() => {
+            const predsYs = predict(xs) //  每次计算得到的y值
+            return loss(predsYs, ys) //与预测的y值计算损失
+          })
+        }
+      }
+      train(tf.scalar(2), tf.scalar(8),65)
+      a.print()
+      // d.print()
+    </script>
+  </head>
+  <body></body>
+</html>
