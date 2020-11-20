@@ -69,7 +69,56 @@
         // 打开浏览器devtools查看输出
         model.predict(tf.tensor2d([5], [1, 1])).print();
       });
+      //标量 scalar()
+      tf.scalar(3).print()
+      //缓冲区 buffer() 缓冲区方法 set() get() toTensor()
+      tf.buffer([2,3]).toTensor().print()
+      //克隆 clone()
+      tf.tensor([2]).clone().print()
+      //组合成复数 complex(实部,虚部)
+      const real = tf.tensor1d([2.25, 3.25]);
+      const imag = tf.tensor1d([4.75, 5.75]);
+      // tf.complex(real, imag)//[2.25 + 4.75j , 3.25 + 5.75j]
+      //返回复数的虚部 imag(复数) 返回实部 real(复数)
+      //tf.imag(tf.complex(real, imag))//[4.75, 5.75]
+      //tf.real(tf.complex(real, imag))//[-2.25, 3.25]
 
+      //创建矩阵 eye(行数,列数,批处理形状[],类型)
+      tf.eye(4,4,[2]).print()
+      //填充值fill(形状[],值,类型?)
+      tf.fill([2,2],5).print()
+      //线性等分向量 linspace(start,end,num)始,末,份数
+      tf.linspace(1,5,3).print()
+      //幅度划分向量 range(start,end,step,dtype)
+      tf.range(1,9,2).print()
+      //独热 oneHot(指数,深度,匹配值,其余值)
+      tf.oneHot(tf.tensor1d([1,3],'int32'),5,11,22).print()
+      //打印 print(x,boolean)
+      // tf.print(tf.tensor(1))||tf.tensor(1).print()
+
+      /**
+       * 截断正态分布随机数 truncatedNormal(shape,mean,stddev,dtype,seed,name)
+       * 取值范围为 [ mean - 2 * stddev, mean + 2 * stddev ]
+       * shape	是	1 维整形张量或 array	输出张量的维度
+        mean	否	0 维张量或数值	均值
+        stddev	否	0 维张量或数值	标准差
+        dtype	否	dtype	输出类型
+        seed	否	数值	随机种子，若 seed 赋值，每次产生相同随机数
+        name	否	string	运算名称
+      */
+      tf.truncatedNormal([3,4],4,2,'int32').print()//0-8随机数
+
+      /**
+        * print()同级 张量的方法
+        * buffer()
+        * array()返回数组
+        * data()
+        * disponse()
+        * clone()
+        * toString()
+        * ...
+      */
+      console.log(tf.tensor1d([1,2,3]).toString())
     </script>
   </head>
 

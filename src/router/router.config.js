@@ -1,6 +1,7 @@
 import echartsDemo from '@/views/echartsDemo.vue'
 import threeDemo from '@/views/threeDemo.vue'
 import parent from '@/views/parent.vue'
+import tfdemo from '@/views/tensorflow/tfdemo.vue'
 
 /**
  * 静态路由
@@ -23,5 +24,11 @@ export const constantRouterMap = [
         name: 'parent',
         component: parent,
         meta: { title: '组件调用练习' },
+    },
+    {
+        path: '/tfdemo',
+        name: 'tfdemo',
+        component: tfdemo,
+        meta: { title: '张量和操作' },
     },
 ]
