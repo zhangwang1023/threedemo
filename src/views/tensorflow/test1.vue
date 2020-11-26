@@ -1,6 +1,6 @@
 <template>
   <div class="ddd"> 
-    <img id='image' src='../../assets/hongjie.jpg' crossorigin='anonymous'/>
+    <img id='image' src='../../assets/jjy.jpeg' crossorigin='anonymous'/>
     <div v-for="(item,index) in list" :key="index" :style="'left:'+item.position.x+'px;top:'+item.position.y+'px'" class="pix">{{item.part}}</div>
   </div>
 </template>
@@ -50,9 +50,9 @@ export default {
     width: 5px;
     /* border:solid 1px red; */
     border-radius: 10px;
-    background-color: red;
+    background-color: green;
     z-index: 999;
-    color: blue;
+    color: red;
     font-size: 20px;
   }
 </style>

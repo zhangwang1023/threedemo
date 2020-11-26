@@ -4,6 +4,7 @@ import parent from '@/views/parent.vue'
 import tfdemo from '@/views/tensorflow/tfdemo.vue'
 import test1 from '@/views/tensorflow/test1.vue'
 import test2 from '@/views/tensorflow/test2.vue'
+import test3 from '@/views/tensorflow/test3.vue'
 
 /**
  * 静态路由
@@ -44,5 +45,11 @@ export const constantRouterMap = [
         name: 'test2',
         component: test2,
         meta: { title: 'blazeface' },
+    },
+    {
+        path: '/test3',
+        name: 'test3',
+        component: test3,
+        meta: { title: 'facemesh' },
     },
 ]

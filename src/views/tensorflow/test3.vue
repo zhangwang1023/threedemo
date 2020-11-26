@@ -5,7 +5,7 @@
 </template>
 
 <script>
-const blazeface = require('@tensorflow-models/blazeface')
+const facemesh = require('@tensorflow-models/facemesh')
 export default {
   data(){
     return{
@@ -18,11 +18,8 @@ export default {
   },
   methods:{
     async loadAndPredict() {
-      const model = await blazeface.load()
-      const returnTensors=false
+      const model = await facemesh.load()
       console.log(321,model);
-      const predictions = await model.estimateFaces(document.querySelector("img"), returnTensors)
-      console.log(123,predictions);
     }
   }
 }
