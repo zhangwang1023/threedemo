@@ -8,15 +8,15 @@
  </head>
 
   <body>
+    <div></div>
     <img id='image' src='../../assets/dlrb.jpg' crossorigin='anonymous'/>
+    <div></div>
   </body>
-  <!-- Place your code in the script tag below. You can also use an external .js file -->
   <script>
     const img = document.getElementById('image');
 
     async function loadAndPredict() {
       const net = await bodyPix.load(/** optional arguments, see below **/);
-
       /**
        * One of (see documentation below):
        *   - net.segmentPerson
@@ -27,7 +27,13 @@
        */
       const segmentation = await net.segmentPersonParts(img);
       console.log(segmentation);
+      const data=segmentation.allPoses[0].keypoints
     }
     loadAndPredict();
   </script>
+  <style>
+    #image{
+      position: relative;
+    }
+  </style>
 </html>

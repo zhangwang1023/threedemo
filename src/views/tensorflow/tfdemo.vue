@@ -35,6 +35,8 @@ export default {
     // console.log(tf.getBackend())//查看当前使用backend后端
     // tf.setBackend('cpu') 更换backend后端 cpu最简单 性能最差
 
+
+    //demo1
     const model=tf.sequential({
       layers:[
         tf.layers.dense({inputShape:[784],units:32,activation:'relu'}),
@@ -60,11 +62,6 @@ export default {
     // Generate dummy data.
     const data = tf.randomNormal([100, 784]);
     const labels = tf.randomUniform([100, 10]);
-    let index=0
-    function onBatchEnd(batch, logs) {
-      index++
-      console.log('Accuracy', logs.acc,index);
-    }
 
     //添加优化器、损失函数和指标
     model.compile({
@@ -75,13 +72,37 @@ export default {
     // Train for 5 epochs with batch size of 32.
     model.fit(data, labels, {
       epochs: 5,
-      batchSize: 32,
-      callbacks: {onBatchEnd}
-    }).then(info => {
-      console.log('Final accuracy', info.history.acc);
+      batchSize: 100,
+      callbacks: {}
+    }).then(() => {
+      // model.predict(tf.randomNormal([3, 784])).print()
     });
-    const prediction = model.predict(tf.randomNormal([3, 784]));
-    prediction.print();
+
+
+    //demo2
+    const model1=tf.sequential({
+      layers:[
+        tf.layers.dense({
+          inputShape:[1],
+          units:1,
+        })
+      ]
+    })
+    model1.compile({
+      loss:'meanSquaredError',
+      optimizer:'sgd'
+    })
+    //定义函数取y值
+    function fx(x){
+      return tf.tidy(()=>{
+        return x.square()
+      })
+    }
+    const xs = tf.tensor([1,3,5,7,9,11,13,15]);
+    xs.print()
+    model1.fit(xs,fx(xs),{epochs:300}).then(()=>{
+      model1.predict(tf.tensor([5,4,3,2,1,11,22])).print()
+    })
 
 
 
