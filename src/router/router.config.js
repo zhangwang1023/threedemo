@@ -5,6 +5,7 @@ import tfdemo from '@/views/tensorflow/tfdemo.vue'
 import test1 from '@/views/tensorflow/test1.vue'
 import test2 from '@/views/tensorflow/test2.vue'
 import test3 from '@/views/tensorflow/test3.vue'
+import test4 from '@/views/tensorflow/test4.vue'
 
 /**
  * 静态路由
@@ -51,5 +52,11 @@ export const constantRouterMap = [
         name: 'test3',
         component: test3,
         meta: { title: 'facemesh' },
+    },
+    {
+        path: '/test4',
+        name: 'test4',
+        component: test4,
+        meta: { title: 'qna' },
     },
 ]

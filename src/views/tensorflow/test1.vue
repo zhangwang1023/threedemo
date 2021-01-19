@@ -6,6 +6,7 @@
 </template>
 
 <script>
+//身体部位检测
 const bodyPix = require('@tensorflow-models/body-pix')
 
 export default {
@@ -20,8 +21,10 @@ export default {
   },
   methods:{
     async loadAndPredict() {
-    const img = document.getElementById('image')
+      console.log('开始加载模型...');
+      const img = document.getElementById('image')
       const net =await bodyPix.load(/** optional arguments, see below **/);
+      console.log('模型加载完成',net);
       /**
        * One of (see documentation below):
        *   - net.segmentPerson
@@ -46,13 +49,13 @@ export default {
   .pix{
     position: absolute;
     transform: translate(-50%,-50%);
-    height: 5px;
-    width: 5px;
-    /* border:solid 1px red; */
+    height: 8px;
+    width: 8px;
     border-radius: 10px;
-    background-color: green;
-    z-index: 999;
-    color: red;
-    font-size: 20px;
+    background-color: yellow;
+    color: green;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 50px;
   }
 </style>

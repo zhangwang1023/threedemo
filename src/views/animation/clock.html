@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      .clock {
+        position: relative;
+        width: 400px;
+        height: 400px;
+        border: 5px solid #0099ff;
+        border-radius: 50%;
+        margin: 100px auto;
+      }
+
+      /* 让刻度线在clock里面 */
+      div[class^='line'] {
+        /* 在父元素中垂直居中 */
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        /* 向下移动自身高度的一半 */
+        transform: translate(0, -50%);
+        width: 8px;
+        height: 400px;
+        background-color: #0099ff;
+        z-index: -11;
+      }
+
+      .clock div.line2 {
+        transform: translate(-50%, -50%) rotate(30deg);
+      }
+
+      .clock div.line3 {
+        transform: translate(-50%, -50%) rotate(60deg);
+      }
+
+      .clock div.line4 {
+        transform: translate(-50%, -50%) rotate(90deg);
+      }
+
+      .clock div.line5 {
+        transform: translate(-50%, -50%) rotate(120deg);
+      }
+
+      .clock div.line6 {
+        transform: translate(-50%, -50%) rotate(150deg);
+      }
+
+      .center {
+        /* 在父元素中垂直居中 */
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        /* 向下移动自身高度的一半 */
+        transform: translate(-50%, -50%);
+      }
+
+      .cover {
+        width: 370px;
+        height: 370px;
+        background-color: #ffffff;
+        border-radius: 50%;
+      }
+
+      .cover .number1 .up {
+        transform: translate(180px, 0);
+      }
+
+      .cover .number1 .down {
+        transform: translate(184px, 330px);
+      }
+
+      .cover .number2 .up {
+        transform: translate(270px, -21px);
+      }
+
+      .cover .number2 .down {
+        transform: translate(90px, 265px);
+      }
+
+      .cover .number3 .up {
+        transform: translate(336px, 2px);
+      }
+
+      .cover .number3 .down {
+        transform: translate(25px, 157px);
+      }
+
+      .cover .number4 .up {
+        transform: translate(360px, 49px);
+      }
+
+      .cover .number4 .down {
+        transform: translate(0, 26px);
+      }
+
+      .cover .number5 .up {
+        transform: translate(336px, 93px);
+      }
+
+      .cover .number5 .down {
+        transform: translate(24px, -103px);
+      }
+
+      .cover .number6 .up {
+        transform: translate(270px, 117px);
+      }
+
+      .cover .number6 .down {
+        transform: translate(90px, -211px);
+      }
+
+      .origin {
+        width: 15px;
+        height: 15px;
+        background-color: #0099ff;
+        border-radius: 50%;
+        z-index: 10;
+      }
+
+      .hour,
+      .minute,
+      .second {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -100%);
+        transform-origin: center bottom;
+      }
+
+      .hour::after,
+      .minute::after,
+      .second::after {
+        position: absolute;
+        content: '';
+        width: 0;
+        height: 0;
+      }
+
+      .hour {
+        width: 10px;
+        height: 80px;
+        background-color: #000;
+        animation: move 43200s steps(43200) infinite;
+      }
+
+      .hour::after {
+        left: -4px;
+        top: -27px;
+        border: 10px solid transparent;
+        border-bottom: 20px solid #000;
+      }
+
+      .minute {
+        width: 6px;
+        height: 105px;
+        background-color: #ccc;
+        animation: move 3600s steps(60) infinite;
+      }
+
+      .minute::after {
+        left: -3px;
+        top: -21px;
+        border: 6px solid transparent;
+        border-bottom: 15px solid #ccc;
+      }
+
+      .second {
+        width: 3px;
+        height: 130px;
+        background-color: #0099ff;
+        animation: move 60s steps(60) infinite;
+      }
+
+      .second::after {
+        left: -2px;
+        top: -13px;
+        border: 3px solid transparent;
+        border-bottom: 10px solid #0099ff;
+      }
+
+      @keyframes move {
+        0% {
+          transform: translate(-50%, -100%) rotate(0deg);
+        }
+
+        100% {
+          transform: translate(-50%, -100%) rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="clock">
+      <div class="line1"></div>
+      <div class="line2"></div>
+      <div class="line3"></div>
+      <div class="line4"></div>
+      <div class="line5"></div>
+      <div class="line6"></div>
+      <!-- 遮住线中间，留出两端显示刻度 -->
+      <div class="cover center">
+        <div class="number1">
+          <p class="up">12</p>
+          <p class="down">6</p>
+        </div>
+        <div class="number2">
+          <p class="up">1</p>
+          <p class="down">7</p>
+        </div>
+        <div class="number3">
+          <p class="up">2</p>
+          <p class="down">8</p>
+        </div>
+        <div class="number4">
+          <p class="up">3</p>
+          <p class="down">9</p>
+        </div>
+        <div class="number5">
+          <p class="up">4</p>
+          <p class="down">10</p>
+        </div>
+        <div class="number6">
+          <p class="up">5</p>
+          <p class="down">11</p>
+        </div>
+      </div>
+      <div class="origin center"></div>
+      <div class="hour"></div>
+      <div class="minute"></div>
+      <div class="second"></div>
+    </div>
+  </body>
+</html>
