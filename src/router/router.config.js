@@ -6,6 +6,9 @@ import test1 from '@/views/tensorflow/test1.vue'
 import test2 from '@/views/tensorflow/test2.vue'
 import test3 from '@/views/tensorflow/test3.vue'
 import test4 from '@/views/tensorflow/test4.vue'
+import around from '@/views/around.vue'
+import around1 from '@/views/around1.vue'
+
 
 /**
  * 静态路由
@@ -59,4 +62,16 @@ export const constantRouterMap = [
         component: test4,
         meta: { title: 'qna' },
     },
+    {
+        path: '/around',
+        name: 'around',
+        component: around,
+        meta: { title: 'around' },
+    },
+    {
+        path: '/around1',
+        name: 'around1',
+        component: around1,
+        meta: { title: 'around1' },
+    }
 ]
